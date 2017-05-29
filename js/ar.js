@@ -13,30 +13,22 @@ window.onload = function () {
 	};
 
 	document.getElementById('raw').oninput = function () {
-		drawArray(createArray());
+		drawArray();
 	};
 
 	document.getElementById('start').disabled = true;
 };
 
-function createArray() {
-	return document.getElementById('raw').value.split(" ").filter(Number);
-}
-
-function drawArray(array) {
-	document.getElementById('bubbles').innerHTML = "";
+function drawArray() {
+	var array = document.getElementById('raw').value.split(" ").filter(Number);
 	var cells = "";
+	document.getElementById('bubbles').innerHTML = "";
 
 	for(var i = 0; i < array.length; i++)
 		cells += "<div class='bubble'>" + array[i] + "</div>";
 
 	document.getElementById('bubbles').innerHTML = cells;
-
-	if (array.length <= 1) {
-		document.getElementById('start').disabled = true;
-	} else {
-		document.getElementById('start').disabled = false;
-	}
+	document.getElementById('start').disabled = array.length <= 1;
 }
 
 function start() {
@@ -47,7 +39,7 @@ function start() {
 
 function restart() {
 		document.getElementById('result').innerText = "";
-		drawArray(createArray());
+		drawArray();
 		doSort();
 		document.getElementById('start').disabled = true;
 		document.getElementById('raw').readOnly = true;
